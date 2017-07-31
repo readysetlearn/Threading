@@ -10,8 +10,14 @@ public class HelloWorlds implements Runnable{
 
     public static void main(String[] args) {
         System.out.println("Hello from main.");
-        for(threadCounter = 0; threadCounter < MAX_THREADS; threadCounter++) {
-            (new Thread(new HelloWorlds())).start();
+        for (threadCounter = 0; threadCounter < MAX_THREADS; threadCounter++) {
+            Thread th = (new Thread(new HelloWorlds()));
+            th.start();
+            try {
+                th.join();
+            } catch (InterruptedException e) {
+                System.out.println("Error: thread was interupted");
+            }
         }
     }
 }
